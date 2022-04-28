@@ -87,6 +87,8 @@ merged_seurat_endo_orgs <- Merge_Seurat_List(
 saveRDS(merged_seurat_endo_orgs, file="/home/marinani/PhD_Projects/Vascular_Organoids/Analysis/Brain_Vasculature/fetal_brain_endo_cells/merged_seurat_endo_orgs.rds")
 # merged_seurat_endo_orgs <- readRDS("/home/marinani/PhD_Projects/Vascular_Organoids/Analysis/Brain_Vasculature/fetal_brain_endo_cells/merged_seurat_endo_orgs.rds")
 
+DotPlot(merged_seurat_endo_orgs, features = c("PECAM1", "SOX2", "CXCR4", "CXCL12"))
+
 ```
 # Find all markers per organ
 ```{r find all markers, echo=FALSE}
@@ -157,6 +159,16 @@ cerebrum <- all_markers_filtered %>%
   ggtitle("Cerebrum") +
   theme(plot.title = element_text(size=15, hjust=0.5))
 cerebrum
+
+pancreas <- all_markers_filtered %>%
+  filter(cluster == "Pancreas") %>%
+  ggplot(aes(x=avg_log2FC,y=pct.1-pct.2, col=diffexpressed, label=delabel)) +
+  geom_point() +
+  geom_text_repel() +
+  theme_minimal() +
+  ggtitle("Pancreas") +
+  theme(plot.title = element_text(size=15, hjust=0.5))
+pancreas
 
 ```
 
